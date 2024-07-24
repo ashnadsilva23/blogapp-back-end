@@ -11,6 +11,10 @@ app.use(express.json())
 app.use(cors())
 
 mongoose.connect("mongodb+srv://ashna:ashna@cluster0.n9qo4.mongodb.net/blogAppDB?retryWrites=true&w=majority&appName=Cluster0")
+
+//signin
+
+//signup
 app.post("/signUp",async(req,res)=>{
    let input=req.body
    let hashedPassword= bcrypt.hashSync(req.body.password,10)
