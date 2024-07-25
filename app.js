@@ -34,11 +34,38 @@ app.post("/create",async(req,res)=>{
     })
 })
 
-//view post
+//view mypost
+app.post("/viewmy",async(req,res)=>{
+    let input=req.body
+    let token=req.headers.token
+    jwt.verify(token,"blogapp",async(error,decoded)=>{
+
+        if (decoded && decoded.email) {
+           postModel.find(input).then(
+            (items)=>{
+                res.json(items)
+            }
+           ).catch(
+            (error)=>{
+                res.json({"status":error})
+            }
+           )
+
+
+            
+        } else {
+            res.json({"status":"invalid authentication"})
+            
+        }
+    })
+
+
+})
+//view allpost
 app.post("/view",async(req,res)=>{
     let token=req.headers.token
     jwt.verify(token,"blogapp",async(error,decoded)=>{
-        
+
         if (decoded && decoded.email) {
            postModel.find().then(
             (items)=>{
