@@ -33,6 +33,33 @@ app.post("/create",async(req,res)=>{
         }
     })
 })
+
+//view post
+app.post("/view",async(req,res)=>{
+    let token=req.headers.token
+    jwt.verify(token,"blogapp",async(error,decoded)=>{
+        if (decoded && decoded.email) {
+           postModel.find().then(
+            (items)=>{
+                res.json(items)
+            }
+           ).catch(
+            (error)=>{
+                res.json({"status":"error"})
+            }
+           )
+
+
+            
+        } else {
+            res.json({"status":"invalid authentication"})
+            
+        }
+    })
+
+
+})
+    
 //signin
 app.post("/signIn",async(req,res)=>{
     let input =req.body
