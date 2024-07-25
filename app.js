@@ -38,6 +38,7 @@ app.post("/create",async(req,res)=>{
 app.post("/view",async(req,res)=>{
     let token=req.headers.token
     jwt.verify(token,"blogapp",async(error,decoded)=>{
+        
         if (decoded && decoded.email) {
            postModel.find().then(
             (items)=>{
